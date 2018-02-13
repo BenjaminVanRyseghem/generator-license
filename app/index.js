@@ -13,7 +13,7 @@ const licenses = [
   { name: 'GNU GPL 3.0', value: 'GPL-3.0' },
   { name: 'GNU LGPL 3.0', value: 'LGPL-3.0' },
   { name: 'Unlicense', value: 'unlicense' },
-  { name: 'No License (Copyrighted)', value: 'nolicense' }
+  { name: 'No License (Copyrighted)', value: 'UNLICENSED' }
 ];
 
 module.exports = class GeneratorLicense extends Generator {
@@ -161,7 +161,7 @@ module.exports = class GeneratorLicense extends Generator {
 
     // We don't want users to publish their module to NPM if they copyrighted
     // their content except if they explicitly stated otherwise.
-    if (this.props.license === 'nolicense' && !this.options.publishCopyrighted) {
+    if (this.props.license === 'UNLICENSED' && !this.options.publishCopyrighted) {
       delete pkg.license;
       pkg.private = true;
     }

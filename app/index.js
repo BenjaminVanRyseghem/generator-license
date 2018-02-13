@@ -72,6 +72,13 @@ module.exports = class GeneratorLicense extends Generator {
       required: false,
       defaults: 'LICENSE'
     });
+
+    this.option('publishCopyrighted', {
+      type: Boolean,
+      desc: 'Publish the package even if there is no license (copyrighted code)',
+      required: false,
+      defaults: false
+    });
   }
 
   initializing() {
@@ -153,8 +160,8 @@ module.exports = class GeneratorLicense extends Generator {
     pkg.license = this.props.license;
 
     // We don't want users to publish their module to NPM if they copyrighted
-    // their content.
-    if (this.props.license === 'nolicense') {
+    // their content except if they explicitly stated otherwise.
+    if (this.props.license === 'nolicense' && !this.options.publishCopyrighted) {
       delete pkg.license;
       pkg.private = true;
     }
